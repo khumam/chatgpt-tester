@@ -1,11 +1,14 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
+import Page from '../../components/page';
 
 const Home: React.FC = () => {
   return (
-    <Box>
-      <Typography>Hello World</Typography>
-    </Box>
+    <Page>
+      <Box>
+        <Typography>Hello World</Typography>
+      </Box>
+    </Page>
   );
 }
 
