@@ -32,7 +32,7 @@ const Complete: React.FC<Props> = ({
         multiline
         rows={5}
         fullWidth
-        placeholder='This field using text-davinci-03'
+        placeholder='This field using gpt-3.5-turbo'
         onChange={handlePromptChange}></TextField>
       <Box height='14px'></Box>
       <Button

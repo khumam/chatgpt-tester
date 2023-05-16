@@ -5,10 +5,10 @@ import Complete from './components/complete';
 import { Configuration, OpenAIApi } from 'openai';
 import { useNavigate } from 'react-router-dom';
 
-const Home: React.FC = () => {
+const Chat: React.FC = () => {
   const navigate = useNavigate();
   const [prompt, setPrompt] = useState('');
-  const [result, setResult] = useState<string|undefined>('Your result will be displayed here');
+  const [result, setResult] = useState<string|undefined>('Your chat result will be displayed here');
 
   const submit = async (): Promise<void> => {
     if (prompt == null || prompt === '') {
@@ -20,18 +20,20 @@ const Home: React.FC = () => {
         apiKey: process.env.REACT_APP_OPENAI_API_KEY,
       });
       const openai = new OpenAIApi(configuration);
-      const response = await openai.createCompletion({
-        model: "text-davinci-003",
-        prompt: prompt,
-        max_tokens: 500,
-        frequency_penalty: 0,
-        presence_penalty: 0,
+      const response = await openai.createChatCompletion({
+        model: "gpt-3.5-turbo",
+        messages: [
+          {
+            role: 'user',
+            content: prompt
+          }
+        ],
       });
-      setResult(response.data.choices[0].text);
+      setResult(response.data.choices[0].message?.content);
     }
   }
 
-   const goTo = (route: string) => {
+  const goTo = (route: string) => {
     navigate(route);
   }
 
@@ -42,10 +44,10 @@ const Home: React.FC = () => {
         <Typography paddingTop='8px'>Playground to test the GPT</Typography>
         <Grid container marginTop='16px' spacing={1}>
           <Grid item sx={{ cursor: 'pointer' }} onClick={() => goTo('/')}>
-            <Box bgcolor={deepPurple[500]} color='white' border={1} borderColor={grey[300]} borderRadius='5px' paddingX='18px' paddingY='8px'>Complete</Box>
+            <Box border={1} borderColor={grey[300]} borderRadius='5px' paddingX='18px' paddingY='8px'>Complete</Box>
           </Grid>
           <Grid item sx={{ cursor: 'pointer' }} onClick={() => goTo('/chat')}>
-            <Box border={1} borderColor={grey[300]} borderRadius='5px' paddingX='18px' paddingY='8px'>Chat</Box>
+            <Box bgcolor={deepPurple[500]} color='white' border={1} borderColor={grey[300]} borderRadius='5px' paddingX='18px' paddingY='8px'>Chat</Box>
           </Grid>
           <Grid item sx={{ cursor: 'pointer' }}>
             <Box border={1} borderColor={grey[300]} borderRadius='5px' paddingX='18px' paddingY='8px'>Insert</Box>
@@ -62,4 +64,4 @@ const Home: React.FC = () => {
   );
 }
 
-export default Home;
+export default Chat;
