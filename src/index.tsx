@@ -18,7 +18,7 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <LocalizationProvider adapterLocale={id} locale={id} dateAdapter={AdapterDateFns}>
+  <LocalizationProvider adapterLocale={id} dateAdapter={AdapterDateFns}>
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <RouterProvider router={router} />

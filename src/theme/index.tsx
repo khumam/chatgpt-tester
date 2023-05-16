@@ -1,3 +1,4 @@
+import { deepPurple } from '@mui/material/colors';
 import { createTheme } from '@mui/material/styles';
 
 declare module '@mui/material/styles' {
@@ -54,7 +55,7 @@ declare module '@mui/material/Typography' {
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#2671D9'
+      main: deepPurple[500]
     },
     secondary: {
       main: '#A8715A'
