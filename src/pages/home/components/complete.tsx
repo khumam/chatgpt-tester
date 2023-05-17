@@ -8,12 +8,14 @@ interface Props {
   result: string|undefined
   setPrompt: Dispatch<SetStateAction<string>>
   submit: () => void
+  isProcessing: boolean
 }
 
 const Complete: React.FC<Props> = ({
   setPrompt,
   result,
-  submit
+  submit,
+  isProcessing
 }) => {
   const handlePromptChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPrompt(e.target.value);
@@ -36,12 +38,13 @@ const Complete: React.FC<Props> = ({
         onChange={handlePromptChange}></TextField>
       <Box height='14px'></Box>
       <Button
+        disabled={isProcessing}
         sx={{ textTransform: 'none' }}
         variant='contained'
         color='primary'
         onClick={handleSubmit}>Generate response</Button>
       <Box marginTop='32px' width='100%' height='auto' border={1} padding='8px' borderColor={grey[300]}>
-        <ReactMarkdown children={result ?? 'Failed to generate your answers'} remarkPlugins={[remarkGfm]} />
+        <ReactMarkdown>{result ?? 'Failed to generate your answers'}</ReactMarkdown>
       </Box>
     </Box>
   );

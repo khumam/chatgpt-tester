@@ -6,3 +6,7 @@
   margin: 0;
   font-family: 'Inter', sans-serif;
 }
+
+ol {
+  margin-left: 32px !important;
+}

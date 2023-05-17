@@ -8,13 +8,15 @@ import { useNavigate } from 'react-router-dom';
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const [prompt, setPrompt] = useState('');
-  const [result, setResult] = useState<string|undefined>('Your result will be displayed here');
+  const [result, setResult] = useState<string | undefined>('Your result will be displayed here');
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const submit = async (): Promise<void> => {
     if (prompt == null || prompt === '') {
       setResult('Please provide some text!');
       return;
     } else {
+      setIsProcessing(true);
       setResult('Generating your answers...');
       const configuration = new Configuration({
         apiKey: process.env.REACT_APP_OPENAI_API_KEY,
@@ -28,6 +30,7 @@ const Home: React.FC = () => {
         presence_penalty: 0,
       });
       setResult(response.data.choices[0].text);
+      setIsProcessing(false);
     }
   }
 
@@ -56,7 +59,7 @@ const Home: React.FC = () => {
         </Grid>
       </Box>
       <Box>
-        <Complete submit={submit} result={result} setPrompt={setPrompt}></Complete>
+        <Complete submit={submit} result={result} setPrompt={setPrompt} isProcessing={isProcessing}></Complete>
       </Box>
     </Container>
   );
